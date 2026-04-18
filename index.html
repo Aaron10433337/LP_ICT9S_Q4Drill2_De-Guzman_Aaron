@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drill 2</title>
+    <style>
+        body{
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin-top: 80px;
+            background-color: rgb(255, 136, 0);
+        }
+        .container{
+            background-color: white;
+            padding: 20px;
+            width: 300px;
+            margin: auto;
+            border: 1px solid #ccc;
+
+        }
+
+        input{
+            padding: 6px;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+        button{
+            padding: 8px 15px;
+            background-color: orange;
+           
+        }
+
+        output{
+            margin-top: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="body">
+
+
+    </div>
+    <div class="container">
+        <h2>Heat Index Calculator</h2>
+        <input type="number" id="temp" placeholder="Enter Temp (Celsius)" min="0" max="100">
+        <br>
+        <input type="number" id="humidity" placeholder="Enter Humidity" min="0" max="100">
+        <br>
+        <input type="button" value="Evaluate" onclick="calculateHeatIndex()">
+        <div class="output">
+            <p id="heatIndex">Heat Index: </p>
+
+             <p id="heatCategory">Heat Index Category: </p>
+        </div>
+
+    </div>
+    
+    <script>
+       function calculateHeatIndex() {
+    var temp = parseFloat(document.getElementById("temp").value);
+    var humidity = parseFloat(document.getElementById("humidity").value);
+
+    if (isNaN(temp) || isNaN(humidity)) {
+        alert("Please enter both temperature and humidity.");
+        return;
+    }
+
+    if (temp < 0 || temp > 100 || humidity < 0 || humidity > 100) {
+        document.getElementById("heatIndex").textContent =
+            "Heat Index: Data is out of range or impossible.";
+        document.getElementById("heatCategory").textContent =
+            "Heat Index Category: Data is out of range or impossible.";
+        return;
+    }
+
+    var heatIndex = temp + (0.33 * humidity) - 4.0;
+    var category = evaluateHeat(heatIndex);
+
+    document.getElementById("heatIndex").textContent =
+        "Heat Index: " + heatIndex.toFixed(2);
+    document.getElementById("heatCategory").textContent =
+        "Heat Index Category: " + category;
+}
+        
+        function evaluateHeat(heatIndex) {
+            if (heatIndex >= 0 && heatIndex < 27) {
+                return "Cool/Comfortable";
+            } else if (heatIndex >= 28 && heatIndex < 32) {
+                return "Warm";
+            } else if (heatIndex >= 33 && heatIndex < 37) {
+                return "Hot";
+            } else if (heatIndex >= 38 && heatIndex < 41) {
+                return "Very Hot/Caution";
+            } else if (heatIndex >= 42) {
+                return "Extremely Hot/Danger";
+            } else {
+                return "Data is out of range or impossible.";
+            }
+        }
+
+
+        if (heatIndex >= 0 && heatIndex < 27){
+            category = "Cool/Comfortable ";
+        } else if (heatIndex >= 28 && heatIndex < 32){
+            category = "Warm";
+        } else if (heatIndex >= 33 && heatIndex < 37){
+            category = "Hot";
+        } else if (heatIndex >= 38 && heatIndex < 41){
+            category = "Very Hot/Caution";
+        } else if (heatIndex >= 42){
+            category = "Extremely Heat/Danger";
+
+        } else {
+            category = "Data is out of range or impossible.";
+        }
+
+
+
+
+
+        document.getElementById("heatIndex").innerHTML = "Heat Index:  " + heatIndex.toFixed(2)  +    " - " + category;    
+
+        
+
+    </script>
+</body>
